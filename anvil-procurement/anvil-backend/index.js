@@ -1,12 +1,14 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+
 const sequelize = require('./db'); 
-const User = require('./models/User');
+const userRoutes = require('./Routes/userRoutes');
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Define routes and CRUD operations here...
+app.use('/users', userRoutes);
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
