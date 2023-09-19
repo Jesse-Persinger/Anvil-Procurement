@@ -11,7 +11,8 @@ const sequelize = new Sequelize('anvil-procurement', 'postgres', '12345', {
 const User = sequelize.define('user', {
   username: Sequelize.STRING,
   email: Sequelize.STRING,
-  password: Sequelize.STRING
+  password: Sequelize.STRING,
+  cart: Sequelize.INTEGER
 });
 
 const Vendor = sequelize.define('vendor', {
@@ -28,7 +29,9 @@ const Category = sequelize.define('category', {
 const Item = sequelize.define('item', {
   name: Sequelize.STRING,
   description: Sequelize.TEXT,
-  price: Sequelize.DECIMAL(10, 2)
+  price: Sequelize.DECIMAL(10, 2),
+  imgUrl: Sequelize.STRING,
+  vendor: Sequelize.STRING
 });
 
 const Budget = sequelize.define('budget', {

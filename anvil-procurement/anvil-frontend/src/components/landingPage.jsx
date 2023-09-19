@@ -15,6 +15,7 @@ const LandingPage = () => {
   };
 
   return (
+
     <div className="landing-page">
       <header className="header">
         <h1>Anvil Procurement</h1>

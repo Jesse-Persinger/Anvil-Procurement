@@ -7,17 +7,29 @@ async function seedDatabase() {
     await sequelize.sync();
   
     // Generate and add 50 random items to the database
+
     for (let i = 0; i < 50; i++) {
       const item = await Item.create({
+        category_id: Math.floor(Math.random() * 10) + 1,
         name: faker.commerce.productName(),
         description: faker.lorem.sentence(),
-        price: parseFloat(faker.commerce.price()),
-    // Add the rest of the columns
-    // math for random relationships {category_id: Math.floor(Math.random() * 10) + 1,}
+        imgUrl: faker.image.urlLoremFlickr({ category: "technics" }),
+        price: faker.number.float({ max: 500 }),
+        vendor: faker.company.name(),
       });
       console.log(`Added item: ${item.name}`);
     }
-  }
+
+    // for (let i = 0; i < 50; i++) {
+    //   const item = await Item.create({
+    //     name: faker.commerce.productName(),
+    //     description: faker.lorem.sentence(),
+    //     price: parseFloat(faker.commerce.price()),
+    // // Add the rest of the columns
+    // // math for random relationships {category_id: Math.floor(Math.random() * 10) + 1,}
+    //   });
+      
+    }
 
   seedDatabase()
   .then(() => {

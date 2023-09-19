@@ -1,80 +1,3 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
-
-// const UserLogin = () => {
-//     const [formData, setFormData] = useState({
-//         email: '',
-//         password: '',
-//     });
-
-//     const navigate = useNavigate();
-
-//     const handleChange = (e) => {
-//         const { name, value } = e.target;
-//         setFormData({
-//             ...formData,
-//             [name]: value,
-//         });
-//     };
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-
-//         try {
-//             // Send the login data to backend for authentication
-//             const response = await axios.post('http://localhost:3000/auth/login', formData);
-
-//             // Handle the response from the server (e.g., store a JWT token on successful login)
-//             const { token, email } = response.data;
-//             console.log('Login successful:', response.data);
-//             localStorage.setItem('token', token);
-
-//             //reRoute
-//             navigate(`/welcome/${email}`);
-
-
-
-//         } catch (error) {
-//             // Handle login errors from the server (e.g., show an error message)
-//             console.error('Login failed:', error.response.data);
-//         }
-//     };
-
-//     return (
-//         <div>
-//             <h2>User Login</h2>
-//             <form onSubmit={handleSubmit}>
-//                 <div>
-//                     <label htmlFor="email">Email:</label>
-//                     <input
-//                         type="email"
-//                         id="email"
-//                         name="email"
-//                         value={formData.email}
-//                         onChange={handleChange}
-//                         required
-//                     />
-//                 </div>
-//                 <div>
-//                     <label htmlFor="password">Password:</label>
-//                     <input
-//                         type="password"
-//                         id="password"
-//                         name="password"
-//                         value={formData.password}
-//                         onChange={handleChange}
-//                         required
-//                     />
-//                 </div>
-//                 <button type="submit">Login</button>
-//             </form>
-//         </div>
-//     );
-// };
-
-// export default UserLogin;
-
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -86,10 +9,20 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AppBar from './AppBar'
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { red, grey } from '@mui/material/colors';
+
+const theme = createTheme({
+    palette: {
+        primary: red,
+        secondary: grey,
+    },
+});
+
 
 function Copyright(props) {
     return (
@@ -134,7 +67,8 @@ export default function UserLogin() {
             localStorage.setItem('token', token);
 
             //reRoute
-            navigate(`/welcome/${email}`);
+            token &&
+                navigate(`/welcome/${email}`);
 
 
 
@@ -143,67 +77,69 @@ export default function UserLogin() {
             console.error('Login failed:', error.response.data);
         }
     };
-
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-                sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign in
-                </Typography>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        onChange={handleChange}
-                        autoFocus
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        onChange={handleChange}
-                    />
+        <ThemeProvider theme={theme}>
+            < Container component="main" maxWidth="s" >
+                <AppBar />
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            onChange={handleChange}
+                            autoFocus
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            onChange={handleChange}
+                        />
 
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                    >
-                        Sign In
-                    </Button>
-                    <Grid container>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Sign In
+                        </Button>
+                        <Grid container>
 
-                        <Grid item>
-                            <Link href="/registration" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
+                            <Grid item>
+                                <Link href="/registration" variant="body2">
+                                    {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </Box>
                 </Box>
-            </Box>
-            <Copyright sx={{ mt: 8, mb: 4 }} />
-        </Container>
+                <Copyright sx={{ mt: 8, mb: 4 }} />
+            </Container >
+        </ThemeProvider>
     );
 }
