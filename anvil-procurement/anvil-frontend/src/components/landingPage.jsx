@@ -17,22 +17,9 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <header className="header">
-        <h1>Welcome to Our Website</h1>
-        <p>Discover amazing features and content.</p>
+        <h1>Anvil Procurement</h1>
+        <p>Make getting stuff easier because your bosses are cheap</p>
       </header>
-
-      <section className="features">
-        <h2>Key Features</h2>
-        <div className="feature">
-          <h3>Feature 1</h3>
-          <p>Description of Feature 1.</p>
-        </div>
-        <div className="feature">
-          <h3>Feature 2</h3>
-          <p>Description of Feature 2.</p>
-        </div>
-        {/* Add more features as needed */}
-      </section>
 
       <section className="cta">
         <h2>Join Us Today</h2>

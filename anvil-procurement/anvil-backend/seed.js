@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 // Replace these values with your actual database credentials
 const sequelize = new Sequelize('anvil-procurement', 'postgres', '12345', {
@@ -26,7 +27,8 @@ const Category = sequelize.define('category', {
 
 const Item = sequelize.define('item', {
   name: Sequelize.STRING,
-  description: Sequelize.TEXT
+  description: Sequelize.TEXT,
+  price: Sequelize.DECIMAL(10, 2)
 });
 
 const Budget = sequelize.define('budget', {

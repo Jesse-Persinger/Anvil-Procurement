@@ -29,8 +29,8 @@ router.post('/login', async (req, res) => {
       expiresIn: '1h', // Adjust the token expiration time as needed
     });
 
-    // Respond with the token
-    res.status(200).json({ token });
+    // Respond with the token & {username/email}
+    res.status(200).json({ token, email });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ error: 'Login failed' });
