@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -10,10 +11,21 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { red, grey } from '@mui/material/colors';
-import AppBar from './AppBar'
+import AppBar from './AppBar';
+import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:3000'; // Replace with your API base URL
+
+export async function getAllVendors() {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/api/vendors`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
 
 const theme = createTheme({
     palette: {
@@ -22,22 +34,20 @@ const theme = createTheme({
     },
 });
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Anvil Procurement
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 export default function StoreFront() {
+    const [vendors, setVendors] = useState([]);
+
+    useEffect(() => {
+        // Fetch all vendors when the component mounts
+        getAllVendors()
+            .then((data) => {
+                setVendors(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching vendors:', error);
+            });
+    }, []);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -59,7 +69,7 @@ export default function StoreFront() {
                             color="text.primary"
                             gutterBottom
                         >
-                            Vendor List
+                            Find And Buy Stuff*
                         </Typography>
                         <Stack
                             sx={{ pt: 4 }}
@@ -68,25 +78,30 @@ export default function StoreFront() {
                             justifyContent="center"
                         >
                             <Button variant="contained">Controls</Button>
-                            <Button variant="contained" color='secondary'>Ops</Button>
+                            <Button variant="contained" color="secondary">
+                                Ops
+                            </Button>
                             <Button variant="contained">Mechanical</Button>
-                            <Button variant="contained" color='secondary' >Systems</Button>
+                            <Button variant="contained" color="secondary">
+                                Systems
+                            </Button>
                         </Stack>
                         <Typography
                             component="h1"
                             variant="h3"
                             align="center"
                             color="text.primary"
-                        ><br></br>
-                            Recent Purchases
+                        >
+                            <br />
+                            Approved Vendors
                         </Typography>
                     </Container>
                 </Box>
                 <Container sx={{ py: 8 }} maxWidth="md">
                     {/* End hero unit */}
                     <Grid container spacing={4}>
-                        {cards.map((card) => (
-                            <Grid item key={card} xs={12} sm={6} md={4}>
+                        {vendors.map((vendor) => (
+                            <Grid item key={vendor.id} xs={12} sm={6} md={4}>
                                 <Card
                                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                                 >
@@ -100,16 +115,18 @@ export default function StoreFront() {
                                     />
                                     <CardContent sx={{ flexGrow: 1 }}>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            Heading
+                                            {vendor.name} {/* Display vendor name */}
                                         </Typography>
                                         <Typography>
-                                            This is a media card. You can use this section to describe the
-                                            content.
+                                            {/* Display other vendor information */}
+                                            {/* You can add more fields here */}
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small">View</Button>
-                                        <Button size="small">Edit</Button>
+                                        <div key={vendor.id}>
+                                            <Link to={`/vendor/${vendor.id}/${vendor.name}`}>{'link'}</Link>
+                                            {/* Other vendor card content */}
+                                        </div>
                                     </CardActions>
                                 </Card>
                             </Grid>
@@ -120,7 +137,7 @@ export default function StoreFront() {
             {/* Footer */}
             <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
                 <Typography variant="h6" align="center" gutterBottom>
-                    Footer
+                    *It's a creative header I'm working on it
                 </Typography>
                 <Typography
                     variant="subtitle1"
@@ -128,9 +145,9 @@ export default function StoreFront() {
                     color="text.secondary"
                     component="p"
                 >
-                    Something here to give the footer a purpose!
+                    And here is an equally uncreative footer
                 </Typography>
-                <Copyright />
+                {/* Copyright component */}
             </Box>
             {/* End footer */}
         </ThemeProvider>

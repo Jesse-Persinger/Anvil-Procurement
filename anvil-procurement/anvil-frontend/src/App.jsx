@@ -6,7 +6,7 @@ import UserRegistration from './components/UserRegistration';
 import UserLogin from './components/UserLogin';
 import AuthenticatedLandingPage from './components/dashboard/AuthenticatedLandingPage';
 import StoreFront from './components/StoreFront'
-
+import VendorItems from './components/VendorItems'
 function App() {
   return (
     <Router>
@@ -17,6 +17,7 @@ function App() {
           <Route path="/login" element={<UserLogin />}></Route >
           <Route path="/welcome/:email" element={<AuthenticatedLandingPage />}></Route>
           <Route path="/store" element={<StoreFront />}></Route>
+          <Route path="/vendor/:vendorId/:vendorName" element={<VendorItems />}></Route>
         </Routes>
       </div>
     </Router>

@@ -6,7 +6,7 @@ const Item = sequelize.define('item', {
   description: Sequelize.TEXT,
   price: Sequelize.DECIMAL(10, 2),
   imgUrl: Sequelize.STRING,
-  vendor: Sequelize.STRING
+  vendor_id: Sequelize.INTEGER,
 });
 
 module.exports = Item;

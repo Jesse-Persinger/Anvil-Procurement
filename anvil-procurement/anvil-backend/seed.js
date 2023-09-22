@@ -23,7 +23,7 @@ const Vendor = sequelize.define('vendor', {
 });
 
 const Category = sequelize.define('category', {
-  name: Sequelize.STRING
+  name: Sequelize.STRING,
 });
 
 const Item = sequelize.define('item', {
@@ -31,7 +31,7 @@ const Item = sequelize.define('item', {
   description: Sequelize.TEXT,
   price: Sequelize.DECIMAL(10, 2),
   imgUrl: Sequelize.STRING,
-  vendor: Sequelize.STRING
+  vendor_id: Sequelize.INTEGER
 });
 
 const Budget = sequelize.define('budget', {
@@ -55,7 +55,7 @@ const PurchaseOrderItem = sequelize.define('po_item', {
 });
 
 // Define associations
-Vendor.hasMany(Item);
+// Vendor.hasMany(Item);
 Category.hasMany(Item);
 User.hasMany(Budget);
 User.hasMany(Purchase);
@@ -71,10 +71,10 @@ sequelize.sync({ force: true }).then(async () => {
   const user = await User.create({ username: 'admin', email: 'admin@example.com', password: 'adminpass' });
   const category = await Category.create({ name: 'Office Supplies' });
   const vendor = await Vendor.create({ name: 'Office Depot' });
-  const item = await Item.create({ name: 'Notepad', description: 'A standard office notepad', categoryId: category.id, vendorId: vendor.id });
-  const budget = await Budget.create({ userId: user.id, categoryId: category.id, budget_amount: 1000 });
+  const item = await Item.create({ name: 'Notepad', description: 'A standard office notepad', category_id: category.id, vendor_id: vendor.id });
+  const budget = await Budget.create({ userId: user.id, category_id: category.id, budget_amount: 1000 });
   const purchase = await Purchase.create({ userId: user.id, itemId: item.id, purchase_date: new Date(), quantity: 10, unit_price: 5 });
-  const purchaseOrder = await PurchaseOrder.create({ userId: user.id, vendorId: vendor.id, order_date: new Date(), total_amount: 50 });
+  const purchaseOrder = await PurchaseOrder.create({ userId: user.id, vendor_id: vendor.id, order_date: new Date(), total_amount: 50 });
   const poItem = await PurchaseOrderItem.create({ purchaseOrderId: purchaseOrder.id, itemId: item.id, quantity: 20, unit_price: 2 });
 
   console.log('Database synced and seeded.');

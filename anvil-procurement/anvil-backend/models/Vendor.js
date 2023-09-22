@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./db');
+const sequelize = require('../db');
 
 const Vendor = sequelize.define('vendor', {
   name: Sequelize.STRING,
