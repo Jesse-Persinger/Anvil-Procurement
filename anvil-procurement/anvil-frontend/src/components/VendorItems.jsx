@@ -4,7 +4,8 @@ import axios from 'axios';
 import { Grid, Card, CardContent, CardMedia, Typography, Container } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { red, grey } from '@mui/material/colors';
-import AppBar from './AppBar';
+import AppBarSearch from './AppBarSearch';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const theme = createTheme({
     palette: {
@@ -13,9 +14,8 @@ const theme = createTheme({
     },
 });
 
-function VendorItems() {
+function VendorItems({ items, setItems }) {
     const { vendorId, vendorName } = useParams();
-    const [items, setItems] = useState([]);
 
     useEffect(() => {
         vendorId &&
@@ -30,7 +30,8 @@ function VendorItems() {
     }, [vendorId]);
     return (
         <ThemeProvider theme={theme}>
-            <AppBar />
+            <CssBaseline />
+            <AppBarSearch items={items} setItems={setItems} />
             <Container>
                 <Typography
                     component="h1"

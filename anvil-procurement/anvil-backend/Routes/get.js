@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Item = require('../models/Item');
 const Vendor = require('../models/Vendor')
+const { Op } = require('sequelize');
 
 // Route to retrieve all items
 router.get('/items', async (req, res) => {
@@ -43,7 +44,5 @@ router.get('/items/:vendor_id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-module.exports = router;
 
 module.exports = router;

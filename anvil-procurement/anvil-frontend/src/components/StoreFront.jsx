@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { red, grey } from '@mui/material/colors';
-import AppBar from './AppBar';
+import AppBarSearch from './AppBarSearch';
 import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:3000'; // Replace with your API base URL
@@ -34,7 +34,7 @@ const theme = createTheme({
     },
 });
 
-export default function StoreFront() {
+export default function StoreFront({ searchData }) {
     const [vendors, setVendors] = useState([]);
 
     useEffect(() => {
@@ -51,7 +51,7 @@ export default function StoreFront() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <AppBar />
+            <AppBarSearch />
             <main>
                 {/* Hero unit */}
                 <Box
@@ -69,7 +69,7 @@ export default function StoreFront() {
                             color="text.primary"
                             gutterBottom
                         >
-                            Find And Buy Stuff*
+                            Find And Buy Stuff* {searchData}
                         </Typography>
                         <Stack
                             sx={{ pt: 4 }}
