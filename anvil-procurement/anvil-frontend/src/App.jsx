@@ -11,6 +11,8 @@ import AppBarSearch from './components/AppBarSearch'
 function App() {
 
   const [items, setItems] = useState([]); // State for items
+  const [user, setUser] = useState([]) // state for user
+
 
   return (
     <Router>
@@ -18,8 +20,8 @@ function App() {
         <Routes>
           <Route path="/" element={<UserLogin />}></Route>
           <Route path="/registration" element={<UserRegistration />}></Route >
-          <Route path="/login" element={<UserLogin />}></Route >
-          <Route path="/welcome/:email" element={<AuthenticatedLandingPage />}></Route>
+          <Route path="/login" element={<UserLogin user={user} setUser={setUser} />}></Route >
+          <Route path="/welcome/:email" element={<AuthenticatedLandingPage user={user} />}></Route>
           <Route path="/store" element={<StoreFront />}></Route>
           <Route path="/vendor/:vendorId/:vendorName" element={<VendorItems items={items} setItems={setItems} />}></Route>
         </Routes>

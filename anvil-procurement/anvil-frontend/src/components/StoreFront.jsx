@@ -71,21 +71,6 @@ export default function StoreFront({ searchData }) {
                         >
                             Find And Buy Stuff* {searchData}
                         </Typography>
-                        <Stack
-                            sx={{ pt: 4 }}
-                            direction="row"
-                            spacing={2}
-                            justifyContent="center"
-                        >
-                            <Button variant="contained">Controls</Button>
-                            <Button variant="contained" color="secondary">
-                                Ops
-                            </Button>
-                            <Button variant="contained">Mechanical</Button>
-                            <Button variant="contained" color="secondary">
-                                Systems
-                            </Button>
-                        </Stack>
                         <Typography
                             component="h1"
                             variant="h3"
@@ -124,7 +109,7 @@ export default function StoreFront({ searchData }) {
                                     </CardContent>
                                     <CardActions>
                                         <div key={vendor.id}>
-                                            <Link to={`/vendor/${vendor.id}/${vendor.name}`}>{'link'}</Link>
+                                            <Link to={`/vendor/${vendor.id}/${vendor.name}`}>{'View Items'}</Link>
                                             {/* Other vendor card content */}
                                         </div>
                                     </CardActions>
@@ -137,7 +122,7 @@ export default function StoreFront({ searchData }) {
             {/* Footer */}
             <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
                 <Typography variant="h6" align="center" gutterBottom>
-                    *It's a creative header I'm working on it
+                    *It's not a creative header I'm working on it
                 </Typography>
                 <Typography
                     variant="subtitle1"

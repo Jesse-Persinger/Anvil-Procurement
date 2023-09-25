@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
     });
 
     // Respond with the token & {username/email}
-    res.status(200).json({ token, email });
+    res.status(200).json({ token, email, userId: user.id, });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ error: 'Login failed' });

@@ -34,6 +34,11 @@ const Item = sequelize.define('item', {
   vendor_id: Sequelize.INTEGER
 });
 
+const Cart = sequelize.define('cart', {
+  quantity: Sequelize.INTEGER,
+  total_amount: Sequelize.DECIMAL(10, 2)
+});
+
 const Budget = sequelize.define('budget', {
   budget_amount: Sequelize.DECIMAL(10, 2)
 });
@@ -57,18 +62,21 @@ const PurchaseOrderItem = sequelize.define('po_item', {
 // Define associations
 // Vendor.hasMany(Item);
 Category.hasMany(Item);
-User.hasMany(Budget);
+User.hasOne(Budget);
 User.hasMany(Purchase);
 User.hasMany(PurchaseOrder);
+User.hasOne(Cart, { as: 'userCart' });
 Vendor.hasMany(PurchaseOrder);
 Item.hasMany(Purchase);
 Item.hasMany(PurchaseOrderItem);
+Item.hasMany(Cart)
 PurchaseOrder.hasMany(PurchaseOrderItem);
 
 // Sync the models with the database
 sequelize.sync({ force: true }).then(async () => {
   // Seed initial data
-  const user = await User.create({ username: 'admin', email: 'admin@example.com', password: 'adminpass' });
+  const user = await User.create({ username: 'admin', email: 'jesse@example.com', password: '12345' });
+  const cart = await Cart.create({ quantity: 5, total_amount: 102.50, userCartId: 1 })
   const category = await Category.create({ name: 'Office Supplies' });
   const vendor = await Vendor.create({ name: 'Office Depot' });
   const item = await Item.create({ name: 'Notepad', description: 'A standard office notepad', category_id: category.id, vendor_id: vendor.id });

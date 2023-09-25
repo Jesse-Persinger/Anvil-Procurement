@@ -38,7 +38,7 @@ function Copyright(props) {
 }
 
 
-export default function UserLogin() {
+export default function UserLogin({ user, setUser }) {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -62,10 +62,11 @@ export default function UserLogin() {
             const response = await axios.post('http://localhost:3000/auth/login', formData);
 
             // Handle the response from the server (e.g., store a JWT token on successful login)
-            const { token, email } = response.data;
+            const { token, email, userId } = response.data;
             console.log('Login successful:', response.data);
             localStorage.setItem('token', token);
-
+            userId && setUser(userId)
+            user && console.log(user)
             //reRoute
             token &&
                 navigate(`/welcome/${email}`);

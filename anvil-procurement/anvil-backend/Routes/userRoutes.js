@@ -1,6 +1,8 @@
 // routes/userRoutes.js
 const express = require('express');
 const User = require('../models/User');
+const Cart = require('../models/Cart')
+const Budget = require('../models/Budget')
 const { authenticateUser, authorizeAdmin, hashPassword } = require('../middleware/authMiddleware');
 const router = express.Router();
 
@@ -29,6 +31,18 @@ router.post('/', hashPassword, async (req, res) => {
       username,
       email,
       password: req.body.password, // Use the hashed password from req.body
+    });
+
+    // Create a cart for the new user
+    const newCart = await Cart.create({
+      quantity: 0, // You can set an initial quantity if needed
+      userCartId: newUser.id, // Associate the cart with the newly created user
+    });
+
+    // Create a budget for the new user
+    const newBudget = await Budget.create({
+      budget_amount: 35000, // You can set an initial budget amount if needed
+      userId: newUser.id, // Associate the budget with the newly created user
     });
 
     // Respond with the newly created user

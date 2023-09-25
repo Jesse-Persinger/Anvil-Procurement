@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Item = require('../models/Item');
 const Vendor = require('../models/Vendor')
-const { Op } = require('sequelize');
+const Budget = require('../models/Budget')
 
 // Route to retrieve all items
 router.get('/items', async (req, res) => {
@@ -42,6 +42,25 @@ router.get('/items/:vendor_id', async (req, res) => {
   } catch (error) {
     console.error('Error fetching items:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Route to get a user's budget by userId
+router.get('/budget/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Find the user's budget by userId
+    const budget = await Budget.findOne({ where: { userId } });
+
+    if (!budget) {
+      return res.status(404).json({ error: 'Budget not found' });
+    }
+
+    res.status(200).json(budget);
+  } catch (error) {
+    console.error('Error getting budget:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

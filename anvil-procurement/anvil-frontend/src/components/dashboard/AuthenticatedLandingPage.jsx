@@ -19,7 +19,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { secondaryListItems } from './listItems';
 import Chart from './Chart';
-import Deposits from './Deposits';
+import Budget from './Budget';
 import Orders from './Orders';
 import { red, grey } from '@mui/material/colors';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -98,14 +98,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function Dashboard() {
+export default function Dashboard({ user }) {
 
     let navigate = useNavigate();
-
-    const toStore = () => {
-        let path = `/store`;
-        navigate(path);
-    }
 
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
@@ -193,11 +188,11 @@ export default function Dashboard() {
                                 </ListItemIcon>
                                 <ListItemText primary="Reports" />
                             </ListItemButton>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => navigate('/store')}>
                                 <ListItemIcon>
                                     <LayersIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="Vendors" onClick={toStore} />
+                                <ListItemText primary="Vendors" />
                             </ListItemButton>
                         </React.Fragment>
                         <Divider sx={{ my: 1 }} />
@@ -242,7 +237,7 @@ export default function Dashboard() {
                                         height: 240,
                                     }}
                                 >
-                                    <Deposits />
+                                    <Budget user={user} />
                                 </Paper>
                             </Grid>
                             {/* Recent Orders */}

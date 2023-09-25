@@ -15,9 +15,11 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useParams } from 'react-router-dom';
+import { Link, Route, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -66,6 +68,8 @@ export default function PrimarySearchAppBar({ items, setItems }) {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     //const [searchData, setSearchData] = useState('')
 
+    const navigate = useNavigate();
+
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -86,6 +90,7 @@ export default function PrimarySearchAppBar({ items, setItems }) {
         setMobileMoreAnchorEl(event.currentTarget);
     };
     //
+
     const handleChange = async (event) => {
         const newValue = event.target.value;
         setSearchData(newValue); // Update the state with the new input value
@@ -155,14 +160,6 @@ export default function PrimarySearchAppBar({ items, setItems }) {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
                 <IconButton
                     size="large"
                     aria-label="show 17 new notifications"
@@ -195,23 +192,11 @@ export default function PrimarySearchAppBar({ items, setItems }) {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
+
+                    <IconButton onClick={() => navigate(-1)} color="secondary" aria-label="back">
+                        <ArrowBackIcon />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        MUI
-                    </Typography>
+
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
@@ -222,13 +207,18 @@ export default function PrimarySearchAppBar({ items, setItems }) {
                             onChange={handleChange}
                         />
                     </Search>
+                    <Typography
+                        variant="h4"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+
+                    >
+                        Anvil Procurement
+                    </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
+
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"
