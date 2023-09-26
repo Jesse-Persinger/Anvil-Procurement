@@ -5,7 +5,7 @@ const Cart = sequelize.define('cart', {
   quantity: Sequelize.INTEGER,
   total_amount: Sequelize.DECIMAL(10, 2),
   userCartId: Sequelize.INTEGER,
-  itemId: Sequelize.ARRAY(Sequelize.INTEGER)
+  
 });
 
 module.exports = Cart;

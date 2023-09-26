@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Grid, Card, CardContent, CardMedia, Typography, Container } from '@mui/material';
+import { Grid, Card, CardContent, CardMedia, Typography, Container, Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { red, grey } from '@mui/material/colors';
 import AppBarSearch from './AppBarSearch';
 import CssBaseline from '@mui/material/CssBaseline';
+import { getStorageValues, cleanStorageValues, setStorageValues } from '../../utils/localStorage'
 
 const theme = createTheme({
     palette: {
@@ -16,6 +17,21 @@ const theme = createTheme({
 
 function VendorItems({ items, setItems }) {
     const { vendorId, vendorName } = useParams();
+    const cartId = getStorageValues('userId');
+    console.log(cartId + 'cart')
+
+    const handleAddToCart = (itemId) => {
+        // Send a request to your backend to add the item to the cart
+        axios.post(`http://localhost:3000/api/cart/1/addItem/${itemId}`)
+            .then((response) => {
+                // Handle success, e.g., show a success message to the user
+                console.log('Item added to cart:', response.data);
+            })
+            .catch((error) => {
+                // Handle error, e.g., show an error message to the user
+                console.error('Error adding item to cart:', error);
+            });
+    };
 
     useEffect(() => {
         vendorId &&
@@ -28,6 +44,7 @@ function VendorItems({ items, setItems }) {
                     console.error('Error fetching items:', error);
                 });
     }, [vendorId]);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -60,6 +77,13 @@ function VendorItems({ items, setItems }) {
                                     <Typography variant="subtitle1" color="primary">
                                         Price: ${item.price}
                                     </Typography>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => handleAddToCart(item.id)}
+                                    >
+                                        Add to Cart
+                                    </Button>
                                 </CardContent>
                             </Card>
                         </Grid>
@@ -71,4 +95,3 @@ function VendorItems({ items, setItems }) {
 }
 
 export default VendorItems;
-

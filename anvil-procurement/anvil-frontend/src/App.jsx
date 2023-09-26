@@ -7,7 +7,7 @@ import StoreFront from './components/StoreFront'
 import VendorItems from './components/VendorItems'
 import React, { useState } from 'react';
 import AppBarSearch from './components/AppBarSearch'
-
+import CartItems from './components/CartItems'
 function App() {
 
   const [items, setItems] = useState([]); // State for items
@@ -24,6 +24,7 @@ function App() {
           <Route path="/welcome/:email" element={<AuthenticatedLandingPage user={user} />}></Route>
           <Route path="/store" element={<StoreFront />}></Route>
           <Route path="/vendor/:vendorId/:vendorName" element={<VendorItems items={items} setItems={setItems} />}></Route>
+          <Route path="/cart/:userId" element={<CartItems />}></Route>
         </Routes>
       </div>
     </Router>

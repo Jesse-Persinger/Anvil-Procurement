@@ -19,7 +19,7 @@ async function seedDatabase() {
   }
 
   // Generate and add 50 random items to the database
-  for (let i = 0; i < 50; i++) {
+  for (let i = 1; i < 50; i++) {
     // console.log(randomVendor + '=========');
     const item = await Item.create({
       category_id: Math.floor(Math.random() * 10) + 1,

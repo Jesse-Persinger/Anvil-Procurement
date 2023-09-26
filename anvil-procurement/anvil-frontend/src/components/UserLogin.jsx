@@ -60,13 +60,14 @@ export default function UserLogin({ user, setUser }) {
         try {
             // Send the login data to backend for authentication
             const response = await axios.post('http://localhost:3000/auth/login', formData);
-
+            console.log(response.data.userId);
             // Handle the response from the server (e.g., store a JWT token on successful login)
             const { token, email, userId } = response.data;
             console.log('Login successful:', response.data);
             localStorage.setItem('token', token);
-            userId && setUser(userId)
-            user && console.log(user)
+            localStorage.setItem('userId', userId);
+            // userId && setUser(userId)
+            // user && console.log(user)
             //reRoute
             token &&
                 navigate(`/welcome/${email}`);

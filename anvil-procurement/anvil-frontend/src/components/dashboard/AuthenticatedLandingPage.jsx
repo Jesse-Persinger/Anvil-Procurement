@@ -1,3 +1,5 @@
+//Add function to check for token
+
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -31,6 +33,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import { useNavigate, useParams } from "react-router-dom";
+import { getStorageValues, cleanStorageValues, setStorageValues } from '../../../utils/localStorage'
 
 const theme = createTheme({
     palette: {
@@ -98,7 +101,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function Dashboard({ user }) {
+export default function Dashboard() {
+
+    const user = getStorageValues('userId')
+    // console.log(user);
 
     let navigate = useNavigate();
 
@@ -170,7 +176,7 @@ export default function Dashboard({ user }) {
                                 </ListItemIcon>
                                 <ListItemText primary="Dashboard" />
                             </ListItemButton>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => navigate(`/cart/${email}`)}>
                                 <ListItemIcon>
                                     <ShoppingCartIcon />
                                 </ListItemIcon>

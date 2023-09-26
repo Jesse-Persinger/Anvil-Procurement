@@ -36,7 +36,8 @@ const Item = sequelize.define('item', {
 
 const Cart = sequelize.define('cart', {
   quantity: Sequelize.INTEGER,
-  total_amount: Sequelize.DECIMAL(10, 2)
+  total_amount: Sequelize.DECIMAL(10, 2),
+  userCartId: Sequelize.INTEGER,
 });
 
 const Budget = sequelize.define('budget', {
@@ -59,6 +60,16 @@ const PurchaseOrderItem = sequelize.define('po_item', {
   unit_price: Sequelize.DECIMAL(10, 2)
 });
 
+const CartItem = sequelize.define('cart_item', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true, // This makes 'id' the primary key
+    autoIncrement: true,
+  },
+quantity: Sequelize.INTEGER,
+unit_price: Sequelize.DECIMAL(10, 2)
+});
+
 // Define associations
 // Vendor.hasMany(Item);
 Category.hasMany(Item);
@@ -69,14 +80,15 @@ User.hasOne(Cart, { as: 'userCart' });
 Vendor.hasMany(PurchaseOrder);
 Item.hasMany(Purchase);
 Item.hasMany(PurchaseOrderItem);
-Item.hasMany(Cart)
 PurchaseOrder.hasMany(PurchaseOrderItem);
+Item.belongsToMany(Cart, { through: CartItem });
+Cart.belongsToMany(Item, { through: CartItem });
+
 
 // Sync the models with the database
 sequelize.sync({ force: true }).then(async () => {
   // Seed initial data
   const user = await User.create({ username: 'admin', email: 'jesse@example.com', password: '12345' });
-  const cart = await Cart.create({ quantity: 5, total_amount: 102.50, userCartId: 1 })
   const category = await Category.create({ name: 'Office Supplies' });
   const vendor = await Vendor.create({ name: 'Office Depot' });
   const item = await Item.create({ name: 'Notepad', description: 'A standard office notepad', category_id: category.id, vendor_id: vendor.id });
@@ -84,6 +96,7 @@ sequelize.sync({ force: true }).then(async () => {
   const purchase = await Purchase.create({ userId: user.id, itemId: item.id, purchase_date: new Date(), quantity: 10, unit_price: 5 });
   const purchaseOrder = await PurchaseOrder.create({ userId: user.id, vendor_id: vendor.id, order_date: new Date(), total_amount: 50 });
   const poItem = await PurchaseOrderItem.create({ purchaseOrderId: purchaseOrder.id, itemId: item.id, quantity: 20, unit_price: 2 });
+  const cart = await Cart.create({ userCartId: 1, quantity: 5, total_amount: 102.50 })
 
   console.log('Database synced and seeded.');
 }).catch(error => {
