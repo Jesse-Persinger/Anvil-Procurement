@@ -18,7 +18,6 @@ const theme = createTheme({
 function VendorItems({ items, setItems }) {
     const { vendorId, vendorName } = useParams();
     const cartId = getStorageValues('userId');
-    console.log(cartId + 'cart')
 
     const handleAddToCart = (itemId) => {
         // Send a request to your backend to add the item to the cart

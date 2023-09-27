@@ -101,7 +101,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function Dashboard() {
+export default function Dashboard({ logState }) {
 
     const user = getStorageValues('userId')
     // console.log(user);

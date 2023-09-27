@@ -38,7 +38,7 @@ function Copyright(props) {
 }
 
 
-export default function UserLogin({ user, setUser }) {
+export default function UserLogin({ logState, setLogState }) {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -66,6 +66,7 @@ export default function UserLogin({ user, setUser }) {
             console.log('Login successful:', response.data);
             localStorage.setItem('token', token);
             localStorage.setItem('userId', userId);
+            setLogState(true)
             // userId && setUser(userId)
             // user && console.log(user)
             //reRoute

@@ -20,6 +20,10 @@ import { useState } from 'react';
 import axios from 'axios';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { getStorageValues, cleanStorageValues } from "../../utils/localStorage";
+
+
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -62,6 +66,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar({ items, setItems }) {
+
+    const userID = getStorageValues('userId')
+
     const [searchData, setSearchData] = useState('');
     const { vendorId, vendorName } = useParams();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -69,6 +76,11 @@ export default function PrimarySearchAppBar({ items, setItems }) {
     //const [searchData, setSearchData] = useState('')
 
     const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        cleanStorageValues()
+        navigate('/login')
+    }
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -94,8 +106,6 @@ export default function PrimarySearchAppBar({ items, setItems }) {
     const handleChange = async (event) => {
         const newValue = event.target.value;
         setSearchData(newValue); // Update the state with the new input value
-        // console.log(newValue); // Log the input field value
-        // console.log(vendorId, vendorName)
         if (vendorName) {
             try {
                 const response = await axios.get('http://localhost:3000/api/search/items', {
@@ -110,7 +120,6 @@ export default function PrimarySearchAppBar({ items, setItems }) {
                     });
 
                 // Handle the response data (search results)
-                console.log('Search results:', response.data);
             } catch (error) {
                 console.error('Error searching for items:', error);
             }
@@ -139,6 +148,7 @@ export default function PrimarySearchAppBar({ items, setItems }) {
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleLogOut}>Log out</MenuItem>
         </Menu>
     );
 
@@ -219,6 +229,10 @@ export default function PrimarySearchAppBar({ items, setItems }) {
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
+
+                        <IconButton onClick={() => navigate(`/cart/${userID}`)} color="inherit" aria-label="back">
+                            <ShoppingCartIcon />
+                        </IconButton>
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"
