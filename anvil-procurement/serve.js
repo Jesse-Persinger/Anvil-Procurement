@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 // serve up production assets
 app.use(express.static('anvil-frontend/dist'));
-// // let the react app to handle any unknown routes 
-// // serve up the index.html if express does'nt recognize the route
-// const path = require('path');
-// app.get('*', (req, res) => {
-// res.sendFile(path.resolve(__dirname, 'anvil-frontend' ,'dist', 'index.html'));
-// });
+// let the react app to handle any unknown routes 
+// serve up the index.html if express does'nt recognize the route
+const path = require('path');
+app.get('*', (req, res) => {
+res.sendFile(path.resolve(__dirname, 'anvil-frontend' ,'dist', 'index.html'));
+});
 // if not in production use the port 5000
 const PORT = 5000;
 console.log('server started on port:',PORT);
