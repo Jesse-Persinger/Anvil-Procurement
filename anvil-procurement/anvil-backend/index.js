@@ -19,7 +19,7 @@ app.use('/api/search', searchRoute);
 app.use('/api/cart', cartRoute);
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
