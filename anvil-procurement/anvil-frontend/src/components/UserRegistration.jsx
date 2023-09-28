@@ -57,7 +57,7 @@ export default function UserRegistration() {
 
     try {
       // Send the form data to your backend for user registration
-      const response = await axios.post('http://localhost:3000/users', formData);
+      const response = await axios.post('https://anvil-procurement.onrender.com/users', formData);
       console.log(formData)
       console.log(response)
 

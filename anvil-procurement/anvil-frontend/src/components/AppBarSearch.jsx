@@ -108,7 +108,7 @@ export default function PrimarySearchAppBar({ items, setItems }) {
         setSearchData(newValue); // Update the state with the new input value
         if (vendorName) {
             try {
-                const response = await axios.get('http://localhost:3000/api/search/items', {
+                const response = await axios.get('https://anvil-procurement.onrender.com/api/search/items', {
                     params: {
                         searchString: newValue,
                         vendorId: vendorId
