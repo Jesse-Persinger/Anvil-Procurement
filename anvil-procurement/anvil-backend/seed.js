@@ -85,3 +85,7 @@ sequelize.sync({ force: true }).then(async () => {
 }).catch(error => {
   console.error('Error syncing database:', error);
 })
+.finally(() => {
+  // Close the database connection when seeding is complete
+  sequelize.close();
+});

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "node index.js"
+    "build": "node seed.js && node fakeData.js && node index.js"
   },
 
   "dependencies": {
