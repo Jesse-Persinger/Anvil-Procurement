@@ -21,7 +21,7 @@ function cartItems() {
 
     useEffect(() => {
         // Fetch items associated with the specified vendorId
-        axios.get(`rds-anvil-db.cnilt0q0gjft.us-east-1.rds.amazonaws.com:3000/api/cart/cart-items/${cartId}`)
+        axios.get(`http://localhost:3000/api/cart/cart-items/${cartId}`)
             .then((response) => {
                 setItems(response.data)
             })
@@ -33,10 +33,10 @@ function cartItems() {
     function removeItem(itemId) {
         const cartId = getStorageValues('userId');
 
-        axios.delete(`rds-anvil-db.cnilt0q0gjft.us-east-1.rds.amazonaws.com:3000/api/cart/remove-cart-item/${itemId}/${cartId}`)
+        axios.delete(`http://localhost:3000/api/cart/remove-cart-item/${itemId}/${cartId}`)
             .then((response) => {
                 console.log('Item removed:', itemId);
-                axios.get(`rds-anvil-db.cnilt0q0gjft.us-east-1.rds.amazonaws.com:3000/api/cart/cart-items/${cartId}`)
+                axios.get(`http://localhost:3000/api/cart/cart-items/${cartId}`)
                     .then((response) => {
                         console.log('Found It:', response.data);
                         setItems(response.data)

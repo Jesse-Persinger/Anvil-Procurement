@@ -108,7 +108,7 @@ export default function PrimarySearchAppBar({ items, setItems }) {
         setSearchData(newValue); // Update the state with the new input value
         if (vendorName) {
             try {
-                const response = await axios.get('rds-anvil-db.cnilt0q0gjft.us-east-1.rds.amazonaws.com:3000/api/search/items', {
+                const response = await axios.get('http://localhost:3000/api/search/items', {
                     params: {
                         searchString: newValue,
                         vendorId: vendorId

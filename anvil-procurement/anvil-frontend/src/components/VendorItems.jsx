@@ -21,7 +21,7 @@ function VendorItems({ items, setItems }) {
 
     const handleAddToCart = (itemId) => {
         // Send a request to your backend to add the item to the cart
-        axios.post(`rds-anvil-db.cnilt0q0gjft.us-east-1.rds.amazonaws.com:3000/api/cart/1/addItem/${itemId}`)
+        axios.post(`http://localhost:3000/api/cart/1/addItem/${itemId}`)
             .then((response) => {
                 // Handle success, e.g., show a success message to the user
                 console.log('Item added to cart:', response.data);
@@ -35,7 +35,7 @@ function VendorItems({ items, setItems }) {
     useEffect(() => {
         vendorId &&
             // Fetch items associated with the specified vendorId
-            axios.get(`rds-anvil-db.cnilt0q0gjft.us-east-1.rds.amazonaws.com:3000/api/items/${vendorId}`)
+            axios.get(`http://localhost:3000/api/items/${vendorId}`)
                 .then((response) => {
                     setItems(response.data);
                 })
