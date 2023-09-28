@@ -77,7 +77,7 @@ export default function UserLogin({ logState, setLogState }) {
 
         } catch (error) {
             // Handle login errors from the server (e.g., show an error message)
-            console.error('Login failed:', error.response.data);
+            console.error('Login failed:');
         }
     };
     return (
