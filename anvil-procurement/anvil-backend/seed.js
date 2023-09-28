@@ -1,11 +1,6 @@
 const Sequelize = require('sequelize');
 const { DataTypes } = require('sequelize');
-
-// Replace these values with your actual database credentials
-const sequelize = new Sequelize('anvil-procurement', 'postgres', '12345', {
-  host: 'localhost',
-  dialect: 'postgres'
-});
+const sequelize = require('./db'); 
 
 // Define models
 const User = sequelize.define('user', {

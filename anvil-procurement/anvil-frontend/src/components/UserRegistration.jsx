@@ -57,7 +57,7 @@ export default function UserRegistration() {
 
     try {
       // Send the form data to your backend for user registration
-      const response = await axios.post('http://localhost:3000/users', formData);
+      const response = await axios.post('rds-anvil-db.cnilt0q0gjft.us-east-1.rds.amazonaws.com:3000/users', formData);
       console.log(formData)
       console.log(response)
 

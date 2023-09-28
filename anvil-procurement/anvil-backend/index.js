@@ -9,7 +9,7 @@ const app = express();
 const cors = require('cors')
 
 app.use(express.json());
-app.use(cors());
+//app.use(cors());
 
 // Define routes and CRUD operations here...
 app.use('/users', userRoutes);
