@@ -103,6 +103,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function Dashboard({ logState }) {
 
+    const handleLogOut = () => {
+        cleanStorageValues()
+        navigate('/login')
+    }
+
     const user = getStorageValues('userId')
     // console.log(user);
 
@@ -147,6 +152,11 @@ export default function Dashboard({ logState }) {
                             Anvil Procurement
                         </Typography>
                         welcome {email.email}
+                        <IconButton onClick={handleLogOut} color="inherit">
+                            <Badge badgeContent={4} color="secondary">
+                                <h3>Log Out</h3>
+                            </Badge>
+                        </IconButton>
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <NotificationsIcon />
