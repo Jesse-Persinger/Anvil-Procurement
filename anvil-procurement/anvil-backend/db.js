@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
 //Replace these values with your actual database credentials
-const sequelize = new Sequelize(process.env.DATABASE_URL || 'anvil-procurement', 'postgres', '12345', {
-  host: 'localhost',
+const sequelize = new Sequelize(process.env.DATABASE_URL || 'anvildb_z5ry', 'admin', 'uBNcRZ3TbrEJ6MjfRmCxR1jp1XvTchsG', {
+  host: 'dpg-ckatujfs0fgc73avkhc0-a',
   dialect: 'postgres'
 });
 
