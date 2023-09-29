@@ -122,8 +122,8 @@ export default function Dashboard({ logState }) {
 
     return (
         <ThemeProvider theme={theme}>
-            <Box sx={{ display: 'flex' }}>
-                <AppBar position="absolute" open={open}>
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static" open={open}>
                     <Toolbar
                         sx={{
                             pr: '24px', // keep right padding when drawer closed
