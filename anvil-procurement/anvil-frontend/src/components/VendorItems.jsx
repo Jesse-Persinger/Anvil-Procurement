@@ -21,7 +21,7 @@ function VendorItems({ items, setItems }) {
 
     const handleAddToCart = (itemId) => {
         // Send a request to your backend to add the item to the cart
-        axios.post(`https://anvil-procurement.onrender.com/api/cart/1/addItem/${itemId}`)
+        axios.post(`https://anvil-procurement.onrender.com/api/cart/${cartId}/addItem/${itemId}`)
             .then((response) => {
                 // Handle success, e.g., show a success message to the user
                 console.log('Item added to cart:', response.data);
