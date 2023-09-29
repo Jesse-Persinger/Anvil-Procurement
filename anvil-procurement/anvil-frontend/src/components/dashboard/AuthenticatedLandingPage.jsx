@@ -123,7 +123,6 @@ export default function Dashboard({ logState }) {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ display: 'flex' }}>
-                <CssBaseline />
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
@@ -152,14 +151,14 @@ export default function Dashboard({ logState }) {
                             Anvil Procurement
                         </Typography>
                         welcome {email.email}
-                        <IconButton onClick={handleLogOut} color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <h3>Log Out</h3>
-                            </Badge>
-                        </IconButton>
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton onClick={handleLogOut} color="inherit">
+                            <Badge color="secondary">
+                                <h4>Log Out</h4>
                             </Badge>
                         </IconButton>
                     </Toolbar>
